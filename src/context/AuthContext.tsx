@@ -11,7 +11,7 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   error: string | null;
-  signInWithGoogle: () => Promise<void>;
+  signInWithGoogle: () => Promise<boolean>;
   signOutUser: () => Promise<void>;
   clearError: () => void;
 }
@@ -40,23 +40,35 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => unsubscribe();
   }, []);
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = async (): Promise<boolean> => {
     setLoading(true);
     setError(null);
     try {
       await signInWithPopup(auth, googleProvider);
+      return true;
     } catch (err: unknown) {
       console.error('Google Sign-In error:', err);
-      if (err instanceof Error) {
-        // User cancelled popup is a common non-fatal case
-        if (err.message.includes('popup-closed-by-user')) {
+      const errorCode = typeof err === 'object' && err !== null && 'code' in err
+        ? String((err as { code: unknown }).code)
+        : '';
+
+      switch (errorCode) {
+        case 'auth/popup-closed-by-user':
           setError('Sign-in was cancelled. Please try again.');
-        } else {
-          setError(err.message);
-        }
-      } else {
-        setError('Failed to sign in with Google');
+          break;
+        case 'auth/popup-blocked':
+          setError('Your browser blocked the Google sign-in popup. Allow popups for this site and try again.');
+          break;
+        case 'auth/unauthorized-domain':
+          setError('This site is not authorized for Firebase Authentication. Add its domain in Firebase Console under Authentication > Settings > Authorized domains.');
+          break;
+        case 'auth/operation-not-allowed':
+          setError('Google sign-in is not enabled for this Firebase project. Enable it under Firebase Console > Authentication > Sign-in method.');
+          break;
+        default:
+          setError(err instanceof Error ? err.message : 'Failed to sign in with Google');
       }
+      return false;
     } finally {
       setLoading(false);
     }

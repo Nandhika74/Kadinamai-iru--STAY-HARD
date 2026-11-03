@@ -13,8 +13,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const handleSignIn = async () => {
-    await signInWithGoogle();
-    onClose();
+    const signedIn = await signInWithGoogle();
+    if (signedIn) onClose();
   };
 
   const handleClose = () => {
