@@ -1,0 +1,106 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with programme preferences and settings",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique Firebase Auth UID"
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User's display name"
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "User profile avatar photo URL"
+        },
+        "currentWeek": {
+          "type": "number",
+          "description": "Active programme week (1-4)"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of profile creation"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of profile update"
+        }
+      },
+      "required": ["id", "email", "currentWeek"]
+    },
+    "WorkoutRecord": {
+      "title": "WorkoutRecord",
+      "description": "Individual daily workout record containing checklist items, completion status, duration, and notes",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Record identifier formatted as date_workoutId"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Owner user UID"
+        },
+        "date": {
+          "type": "string",
+          "description": "Calendar date formatted YYYY-MM-DD"
+        },
+        "workoutId": {
+          "type": "string",
+          "description": "Workout identifier (monday, tuesday, etc.)"
+        },
+        "dayName": {
+          "type": "string",
+          "description": "Full day name (Monday, Tuesday, etc.)"
+        },
+        "checkedExerciseIds": {
+          "type": "array",
+          "description": "List of checked exercise IDs"
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Whether the session was marked complete"
+        },
+        "durationMinutes": {
+          "type": "number",
+          "description": "Workout duration in minutes"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Daily reflection or workout note"
+        },
+        "completedAt": {
+          "type": "string",
+          "description": "ISO timestamp of completion"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of creation"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update"
+        }
+      },
+      "required": ["id", "userId", "date", "workoutId", "dayName", "completed"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Stores user profile and current programme preferences."
+    },
+    "/users/{userId}/workoutRecords/{recordId}": {
+      "schema": "WorkoutRecord",
+      "description": "Stores individual daily workout session progress, checklists, completions, and notes."
+    }
+  }
+}

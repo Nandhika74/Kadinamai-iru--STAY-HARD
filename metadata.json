@@ -1,0 +1,6 @@
+{
+  "name": "Kadinama irungal — #STAY HARD",
+  "description": "A beginner-friendly, habit-building home fitness web application with lower-body strength, core, dance cardio, Zumba, and recovery routines.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

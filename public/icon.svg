@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCE7F0"/>
+      <stop offset="50%" stop-color="#F8C8DC"/>
+      <stop offset="100%" stop-color="#DCD6F7"/>
+    </linearGradient>
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7663B8"/>
+      <stop offset="100%" stop-color="#554394"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF7597"/>
+      <stop offset="100%" stop-color="#7663B8"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#7663B8" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background rounded squircle -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)"/>
+  <rect x="12" y="12" width="488" height="488" rx="116" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-opacity="0.7"/>
+
+  <!-- Center Emblem Card with Shadow -->
+  <g filter="url(#softShadow)">
+    <circle cx="256" cy="256" r="168" fill="#FFFFFF"/>
+    <circle cx="256" cy="256" r="162" fill="none" stroke="#DCD6F7" stroke-width="4"/>
+  </g>
+
+  <!-- Stylized K Glyph for Kadinamai iru -->
+  <g transform="translate(160, 136)">
+    <!-- Vertical stem -->
+    <rect x="12" y="16" width="36" height="208" rx="18" fill="url(#iconGrad)"/>
+    
+    <!-- Top diagonal arm -->
+    <path d="M 32 120 L 140 24 C 148 16 164 20 168 32 C 172 44 164 56 152 68 L 74 136 Z" fill="url(#iconGrad)"/>
+    
+    <!-- Bottom diagonal leg -->
+    <path d="M 68 126 L 158 214 C 168 224 168 238 156 246 C 146 252 134 248 124 238 L 34 148 Z" fill="url(#accentGrad)"/>
+    
+    <!-- Top Sparkle / Flame symbol -->
+    <circle cx="168" cy="18" r="14" fill="#FF7597"/>
+  </g>
+</svg>
